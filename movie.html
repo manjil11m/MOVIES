@@ -1,1 +1,30 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button onclick="goBack()">Back</button>
+  <h2 id="movie-title"></h2>
+  <iframe id="movie-embed" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+  <script>
+    function goBack() { window.history.back(); }
+
+    fetch('movies.json')
+      .then(res => res.json())
+      .then(data => {
+        const params = new URLSearchParams(window.location.search);
+        const index = params.get('index');
+        if(data[index]){
+          document.getElementById('movie-title').textContent = data[index].title;
+          document.getElementById('movie-embed').src = data[index].embed;
+        }
+      });
+  </script>
+</body>
+</html>
