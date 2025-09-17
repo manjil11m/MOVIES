@@ -1,53 +1,32 @@
 const grid = document.getElementById("movie-grid");
-const detail = document.getElementById("movie-detail");
-const backBtn = document.getElementById("back-btn");
-const movieTitle = document.getElementById("movie-title");
-const moviePoster = document.getElementById("movie-poster");
-const movieEmbed = document.getElementById("movie-embed");
 const searchBox = document.getElementById("search-box");
-
 let allMovies = [];
 
 fetch('movies.json')
-  .then(response => response.json())
-  .then(movies => {
-    allMovies = movies;
-    displayMovies(movies);
+  .then(res => res.json())
+  .then(data => {
+    allMovies = data;
+    displayMovies(allMovies);
   });
 
 function displayMovies(movies) {
   grid.innerHTML = "";
-  movies.forEach(movie => {
+  movies.forEach((movie, index) => {
     const card = document.createElement("div");
     card.className = "movie-card";
     card.innerHTML = `
       <img src="${movie.poster}" alt="${movie.title}">
       <h3>${movie.title}</h3>
     `;
-    card.addEventListener("click", () => showDetail(movie));
+    card.addEventListener("click", () => {
+      window.location.href = `movie.html?index=${index}`;
+    });
     grid.appendChild(card);
   });
 }
 
-function showDetail(movie) {
-  grid.classList.add("hidden");
-  detail.classList.remove("hidden");
-  movieTitle.textContent = movie.title;
-  moviePoster.src = movie.poster;
-  movieEmbed.src = movie.embed;
-}
-
-backBtn.addEventListener("click", () => {
-  detail.classList.add("hidden");
-  grid.classList.remove("hidden");
-  movieEmbed.src = "";
-});
-
-// Search functionality
+// Search
 searchBox.addEventListener("input", () => {
   const query = searchBox.value.toLowerCase();
-  const filtered = allMovies.filter(movie =>
-    movie.title.toLowerCase().includes(query)
-  );
-  displayMovies(filtered);
+  displayMovies(allMovies.filter(m => m.title.toLowerCase().includes(query)));
 });
