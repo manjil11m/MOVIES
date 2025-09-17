@@ -3,6 +3,27 @@ header { text-align: center; padding:20px; background-color:#222; }
 .search-container { text-align: center; margin:20px 0; }
 .search-container input { padding:10px; width:300px; border-radius:5px; border:none; font-size:16px; }
 
-#movie-grid { display: grid; grid-template-columns: repeat(auto-fill, 200px); gap:20px; justify-content:center; }
+/* #movie-grid { display: grid; grid-template-columns: repeat(auto-fill, 200px); gap:20px; justify-content:center; }
+.movie-card { cursor: pointer; text-align:center; }
+.movie-card img { width:200px; border-radius:10px; } */
+#movie-grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2vw;
+    padding: 2vw;
+    width: 64.90vw;
+    margin-left: 30vw;
+  justify-content:center;
+}
 .movie-card { cursor: pointer; text-align:center; }
 .movie-card img { width:200px; border-radius:10px; }
+@media(max-width:425px){
+  #movie-grid{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5vw;
+        padding: 5vw;
+        padding-top: 15vw;
+        width: 90vw;
+        margin-left: 0vw;
+    }  
+}
