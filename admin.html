@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Add Movie</title>
+  <style>
+    body { font-family: Arial; background-color: #111; color: white; padding: 20px; }
+    input, button, textarea { display:block; width:100%; margin:10px 0; padding:10px; }
+    textarea { height:200px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>Admin - Add Movie</h1>
+
+  <label>Movie Title:</label>
+  <input type="text" id="title">
+
+  <label>Poster URL:</label>
+  <input type="text" id="poster">
+
+  <label>Dailymotion Embed URL:</label>
+  <input type="text" id="embed">
+
+  <button id="addBtn">Add Movie</button>
+
+  <h2>Generated JSON for Streaming Site</h2>
+  <textarea id="jsonOutput" readonly></textarea>
+
+  <script>
+    let movies = [];
+
+    const titleInput = document.getElementById("title");
+    const posterInput = document.getElementById("poster");
+    const embedInput = document.getElementById("embed");
+    const addBtn = document.getElementById("addBtn");
+    const jsonOutput = document.getElementById("jsonOutput");
+
+    addBtn.addEventListener("click", () => {
+      const movie = {
+        title: titleInput.value,
+        poster: posterInput.value,
+        embed: embedInput.value
+      };
+      movies.push(movie);
+      jsonOutput.value = JSON.stringify(movies, null, 2);
+      titleInput.value = "";
+      posterInput.value = "";
+      embedInput.value = "";
+    });
+  </script>
+</body>
+</html>
